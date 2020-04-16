@@ -7,92 +7,92 @@ import java.util.List;
 public class Countries {
 
     @JsonProperty("CountryCode2")
-    private String CountryCode2;
+    private String countryCode2;
     @JsonProperty("CountryCode3")
-    private String CountryCode3;
+    private String countryCode3;
     @JsonProperty("CountryName")
-    private String CountryName;
+    private String countryName;
     @JsonProperty("CountryFullName")
-    private String CountryFullName;
+    private String countryFullName;
     @JsonProperty("CheckinAllowed")
-    private boolean CheckinAllowed;
+    private boolean checkinAllowed;
     @JsonProperty("ActiveFromDate")
-    private String ActiveFromDate;
+    private String activeFromDate;
     @JsonProperty("ActiveToDate")
-    private String ActiveToDate;
+    private String activeToDate;
     @JsonProperty("RegionCodes")
-    private List<String> RegionCodes;
+    private List<String> regionCodes;
 
     public String getCountryCode2() {
-        return CountryCode2;
+        return countryCode2;
     }
 
     public void setCountryCode2(String countryCode2) {
-        CountryCode2 = countryCode2;
+        this.countryCode2 = countryCode2;
     }
 
     public String getCountryCode3() {
-        return CountryCode3;
+        return countryCode3;
     }
 
     public void setCountryCode3(String countryCode3) {
-        CountryCode3 = countryCode3;
+        this.countryCode3 = countryCode3;
     }
 
     public String getCountryName() {
-        return CountryName;
+        return countryName;
     }
 
     public void setCountryName(String countryName) {
-        CountryName = countryName;
+        this.countryName = countryName;
     }
 
     public String getCountryFullName() {
-        return CountryFullName;
+        return countryFullName;
     }
 
     public void setCountryFullName(String countryFullName) {
-        CountryFullName = countryFullName;
+        this.countryFullName = countryFullName;
     }
 
     public boolean isCheckinAllowed() {
-        return CheckinAllowed;
+        return checkinAllowed;
     }
 
     public void setCheckinAllowed(boolean checkinAllowed) {
-        CheckinAllowed = checkinAllowed;
+        this.checkinAllowed = checkinAllowed;
     }
 
     public String getActiveFromDate() {
-        return ActiveFromDate;
+        return activeFromDate;
     }
 
     public void setActiveFromDate(String activeFromDate) {
-        ActiveFromDate = activeFromDate;
+        this.activeFromDate = activeFromDate;
     }
 
     public String getActiveToDate() {
-        return ActiveToDate;
+        return activeToDate;
     }
 
     public void setActiveToDate(String activeToDate) {
-        ActiveToDate = activeToDate;
+        this.activeToDate = activeToDate;
     }
 
     public List<String> getRegionCodes() {
-        return RegionCodes;
+        return regionCodes;
     }
 
     public void setRegionCodes(List<String> regionCodes) {
-        RegionCodes = regionCodes;
+        this.regionCodes = regionCodes;
     }
 
     @Override
     public String toString() {
-        return "Countries [CountryCode2=" + CountryCode2 + ", CountryCode3=" + CountryCode3 + ", CountryName="
-                + CountryName + ", CountryFullName=" + CountryFullName + ", CheckinAllowed=" + CheckinAllowed
-                + ", ActiveFromDate=" + ActiveFromDate + ", ActiveToDate=" + ActiveToDate + ", RegionCodes="
-                + RegionCodes + "]";
+        return "CountriesRequestData [countryCode2=" + countryCode2 + ", countryCode3=" + countryCode3
+                + ", countryName=" + countryName + ", countryFullName=" + countryFullName + ", checkinAllowed="
+                + checkinAllowed + ", activeFromDate=" + activeFromDate + ", activeToDate=" + activeToDate
+                + ", regionCodes=" + regionCodes + "]";
     }
 }
 

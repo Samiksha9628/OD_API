@@ -2,8 +2,6 @@ package com.example.ODApiTask.Service;
 
 import com.example.ODApiTask.Model.*;
 import com.example.ODApiTask.Utils.ODApiUtils;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,21 +34,21 @@ public class ODApiService {
     private String routesFile;
 
 
-    Response response = null;
+    Response response = new Response();
 
-    Gson gson = new GsonBuilder()
-            .setPrettyPrinting()
-            .serializeNulls()
-            .create();
     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
     Instant instant = timestamp.toInstant();
 
     public LinkedHashMap<String, AirportResponse> getOriginsData() throws IOException {
         List<Airports> airportsList = odApiUtils.readOriginsFile(originsFile).getAirports();
         List<Countries> countriesList = odApiUtils.readCountriesFile(countriesFile).getCountries();
-        ArrayList<String> childMac = new ArrayList<>();
         AirportResponse airportResponse = null;
         LinkedHashMap<String, AirportResponse> airportMap = new LinkedHashMap<>();
+        Map<String, List<String>> metroMap = airportsList.stream()
+                .filter(airport -> airport.getMetropolitanAreaCode() != null)
+                .collect(Collectors.groupingBy(Airports::getMetropolitanAreaCode,
+                        Collectors.mapping(Airports::getIATAAirportCode,
+                                Collectors.toList())));
         for (Airports airport : airportsList) {
             airportResponse = new AirportResponse();
             airportResponse.setCode(airport.getIATAAirportCode());
@@ -66,12 +63,7 @@ public class ODApiService {
             airportResponse.setBlueCity(airport.isIsJetBlue());
             airportResponse.setPreClearedStation(airport.isIsPreClearedDestination());
             airportResponse.setParentMACCode(airport.getMetropolitanAreaCode());
-            Map<String, List<String>> metroMap = airportsList.stream()
-                    .filter(airports -> airport.getMetropolitanAreaCode() != null)
-                    .collect(Collectors.groupingBy(Airports::getMetropolitanAreaCode,
-                            Collectors.mapping(Airports::getIATAAirportCode,
-                                    Collectors.toList())));
-            airportResponse.setChildrenMACCodes(metroMap.get(airport.getMetropolitanAreaCode()).toString());
+            airportResponse.setChildrenMACCodes(metroMap.get(airport.getMetropolitanAreaCode()));
             airportResponse.setMACCode(airportResponse.getChildrenMACCodes() == null ? false : true);
             airportResponse.setRegionCodes(
                     countriesList.stream().filter(a -> a.getCountryCode2().equalsIgnoreCase(airport.getCountryCode2()))
@@ -120,10 +112,10 @@ public class ODApiService {
 
         LinkedHashMap<String, DestinationProperties> destinationMap = new LinkedHashMap<>();
         for (Routes routes : routesList) {
-            DestinationProperties dp = new DestinationProperties();
-            dp.setI(routes.getIsInterline() ? 1 : 0);
-            dp.setC(routes.getIsCodeShare() ? 1 : 0);
-            routesMap.put(routes.getDestinationAirportCode(), dp);
+            DestinationProperties destinationProperties = new DestinationProperties();
+            destinationProperties.setI(routes.isIsInterline() ? 1 : 0);
+            destinationProperties.setC(routes.isIsCodeShare() ? 1 : 0);
+            destinationMap.put(routes.getDestinationAirportCode(), destinationProperties);
         }
         Map<String, List<String>> destinationCode = routesList.stream()
                 .collect(Collectors.groupingBy(Routes::getOriginAirportCode,
@@ -133,7 +125,7 @@ public class ODApiService {
             routeResponse.setOriginCode(routes.getOriginAirportCode());
             routeResponse.setDestinationCodes(destinationCode.get(routes.getOriginAirportCode()));
             routeResponse.setDestinationProperties(routeResponse.getDestinationCodes().stream()
-                    .map(dcode -> routesMap.get(dcode)).collect(Collectors.toList()));
+                    .map(dcode -> destinationMap.get(dcode)).collect(Collectors.toList()));
             routesMap.put(routeResponse.getOriginCode(), routeResponse);
 
         }
@@ -142,15 +134,16 @@ public class ODApiService {
         return routesMap;
     }
 
-    public String getResponseData() throws IOException {
+    public Response getResponseData() throws IOException {
         response.setAirportResponse(getOriginsData());
         response.setCountriesResponse(getCountriesData());
         response.setRegionResponse(getRegionsData());
         response.setRouteResponse(getRoutesData());
         response.setSource("New");
         response.setTimeStamp(instant);
-        String json = gson.toJson(response.getAirportResponse());
-        return json;
+
+        return response;
+
     }
 
 }

@@ -6,42 +6,33 @@ import java.util.List;
 
 public class RouteResponse {
     @JsonProperty("OriginCode")
-    private String OriginCode;
+    private String originCode;
     @JsonProperty("DestinationCodes")
-    private List<String> DestinationCodes;
+    private List<String> destinationCodes;
     @JsonProperty("DestinationProperties")
-    private List<RouteResponse> DestinationProperties;
-
-    @Override
-    public String toString() {
-        return "RouteResponse{" +
-                "OriginCode='" + OriginCode + '\'' +
-                ", DestinationCodes=" + DestinationCodes +
-                ", DestinationProperties=" + DestinationProperties +
-                '}';
-    }
+    private List<DestinationProperties> destinationProperties;
 
     public String getOriginCode() {
-        return OriginCode;
+        return originCode;
     }
 
     public void setOriginCode(String originCode) {
-        OriginCode = originCode;
+        this.originCode = originCode;
     }
 
     public List<String> getDestinationCodes() {
-        return DestinationCodes;
+        return destinationCodes;
     }
 
     public void setDestinationCodes(List<String> destinationCodes) {
-        DestinationCodes = destinationCodes;
+        this.destinationCodes = destinationCodes;
     }
 
-    public List<RouteResponse> getDestinationProperties() {
-        return DestinationProperties;
+    public List<DestinationProperties> getDestinationProperties() {
+        return destinationProperties;
     }
 
-    public void setDestinationProperties(List<RouteResponse> destinationProperties) {
-        DestinationProperties = destinationProperties;
+    public void setDestinationProperties(List<DestinationProperties> destinationProperties) {
+        this.destinationProperties = destinationProperties;
     }
 }

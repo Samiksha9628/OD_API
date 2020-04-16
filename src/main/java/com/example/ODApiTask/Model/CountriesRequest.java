@@ -12,32 +12,28 @@ import java.util.List;
 @ConfigurationProperties
 public class CountriesRequest {
     @JsonProperty("ResponseStatusCode")
-    private String ResponseStatusCode;
+    private String responseStatusCode;
     @JsonProperty("Countries")
-    private List<Countries> Countries;
-
+    private List<Countries> countries;
 
     public String getResponseStatusCode() {
-        return ResponseStatusCode;
+        return responseStatusCode;
     }
 
     public void setResponseStatusCode(String responseStatusCode) {
-        ResponseStatusCode = responseStatusCode;
+        this.responseStatusCode = responseStatusCode;
     }
 
     public List<Countries> getCountries() {
-        return Countries;
+        return countries;
     }
 
     public void setCountries(List<Countries> countries) {
-        Countries = countries;
+        this.countries = countries;
     }
 
     @Override
     public String toString() {
-        return "CountriesResponse{" +
-                "ResponseStatusCode='" + ResponseStatusCode + '\'' +
-                ", Countries=" + Countries +
-                '}';
+        return "CountriesRequest [responseStatusCode=" + responseStatusCode + ", countries=" + countries + "]";
     }
 }

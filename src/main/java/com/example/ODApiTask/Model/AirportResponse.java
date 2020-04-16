@@ -29,7 +29,7 @@ public class AirportResponse {
     @JsonProperty("ParentMACCode")
     private String ParentMACCode;
     @JsonProperty("ChildrenMACCodes")
-    private String ChildrenMACCodes;
+    private List<String> ChildrenMACCodes;
     @JsonProperty("RegionCodes")
     private List<String> RegionCodes;
 
@@ -117,17 +117,22 @@ public class AirportResponse {
         return ParentMACCode;
     }
 
+    public boolean isBlueCity() {
+        return IsBlueCity;
+    }
+
+    public List<String> getChildrenMACCodes() {
+        return ChildrenMACCodes;
+    }
+
+    public void setChildrenMACCodes(List<String> childrenMACCodes) {
+        ChildrenMACCodes = childrenMACCodes;
+    }
+
     public void setParentMACCode(String parentMACCode) {
         ParentMACCode = parentMACCode;
     }
 
-    public String getChildrenMACCodes() {
-        return ChildrenMACCodes;
-    }
-
-    public void setChildrenMACCodes(String childrenMACCodes) {
-        ChildrenMACCodes = childrenMACCodes;
-    }
 
     public List<String> getRegionCodes() {
         return RegionCodes;

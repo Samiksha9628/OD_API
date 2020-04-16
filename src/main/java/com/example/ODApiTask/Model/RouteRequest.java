@@ -6,31 +6,28 @@ import java.util.List;
 
 public class RouteRequest {
     @JsonProperty("ResponseStatusCode")
-    private String ResponseStatusCode;
+    private String responseStatusCode;
     @JsonProperty("Routes")
-    private List<Routes> Routes;
+    private List<Routes> routes;
 
     public String getResponseStatusCode() {
-        return ResponseStatusCode;
+        return responseStatusCode;
     }
 
     public void setResponseStatusCode(String responseStatusCode) {
-        ResponseStatusCode = responseStatusCode;
+        this.responseStatusCode = responseStatusCode;
     }
 
     public List<Routes> getRoutes() {
-        return Routes;
+        return routes;
     }
 
     public void setRoutes(List<Routes> routes) {
-        Routes = routes;
+        this.routes = routes;
     }
 
     @Override
     public String toString() {
-        return "RouteResponse{" +
-                "ResponseStatusCode='" + ResponseStatusCode + '\'' +
-                ", Routes=" + Routes +
-                '}';
+        return "RoutesRequest [responseStatusCode=" + responseStatusCode + ", routes=" + routes + "]";
     }
 }

@@ -1,5 +1,6 @@
 package com.example.ODApiTask.Controller;
 
+import com.example.ODApiTask.Model.Response;
 import com.example.ODApiTask.Service.ODApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ public class ODAPIController {
     ODApiService odApiService;
 
     @GetMapping(value = "/odapi")
-    public ResponseEntity<String> index() throws IOException {
+    public ResponseEntity<Response> index() throws IOException {
         return new ResponseEntity<>(odApiService.getResponseData(), HttpStatus.OK);
     }
 }

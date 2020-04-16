@@ -2,7 +2,7 @@ package com.example.ODApiTask.Model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class DestinationProperties extends RouteResponse {
+public class DestinationProperties {
     @JsonProperty("i")
     private int i;
     @JsonProperty("c")
